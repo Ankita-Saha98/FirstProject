@@ -69,7 +69,7 @@ class MyComponent extends React.Component {
                 "password" : this.state.userInput3
               }).then((res) => {
                 console.log("resp3", res)
-                if(res.objectId !==''){
+                if(res.objectId){
                     alert("Login successful"); 
                     localStorage.setItem('Email', this.state.userInput2);
                     this.setState({
