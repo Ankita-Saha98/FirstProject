@@ -23,8 +23,8 @@ export default class Api {
 				console.log("response",response)
 				resolve(response.data);
 			}).catch(function (error) {
-				console.log('post api error', error);
-				reject(error.message);
+				console.log('post api error', error.response);
+				reject(error.response);
 			});
 		});
 	};

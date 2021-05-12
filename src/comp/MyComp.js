@@ -80,7 +80,12 @@ class MyComponent extends React.Component {
                     alert("Login unsuccessful"); 
                 }
             }).catch((error) => {
-                console.log("error1",error);
+                //console.log("error1",error.data.message);
+                alert(error.data.message);
+                this.setState({
+                    userInput2: '',
+                    userInput3: ''
+                })
 
             });
             
@@ -153,12 +158,16 @@ class MyComponent extends React.Component {
     }
     registerPage(){
         this.setState({
-            activeRegister: true
+            activeRegister: true,
+            userInput2: '',
+            userInput3: ''
         });
     }
     loginPage(){
         this.setState({
-            activeRegister: false
+            activeRegister: false,
+            userInput2: '',
+            userInput3: ''
         });
     }
     register(){
@@ -191,7 +200,12 @@ class MyComponent extends React.Component {
                     alert("Registration unsuccessful"); 
                 }
             }).catch((error) => {
-                console.log("error",error);
+                //console.log("error",error.data.message);
+                alert(error.data.message);
+                this.setState({
+                    userInput2: '',
+                    userInput3: ''
+                })
             });
             
         }
