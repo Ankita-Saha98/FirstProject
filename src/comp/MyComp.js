@@ -19,7 +19,8 @@ class MyComponent extends React.Component {
             pageNo: '' ,
             pageSet: false ,
             count: 0,
-            activeRegister: false
+            activeRegister: false,
+            disableButton: false
         }
 
         this.handleChange2 = this.handleChange2.bind(this);
@@ -64,6 +65,9 @@ class MyComponent extends React.Component {
         }
 
         else if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.userInput2)){
+            this.setState({
+                disableButton: true
+            })
             Api.post(url2,{  
                 "login" : this.state.userInput2,
                 "password" : this.state.userInput3
@@ -73,18 +77,23 @@ class MyComponent extends React.Component {
                     alert("Login successful"); 
                     localStorage.setItem('Email', this.state.userInput2);
                     this.setState({
-                        Success: true
+                        Success: true,
+                        disableButton: false
                     })
                 }
                 else{
                     alert("Login unsuccessful"); 
+                    this.setState({
+                        disableButton: false
+                    })
                 }
             }).catch((error) => {
                 //console.log("error1",error.data.message);
                 alert(error.data.message);
                 this.setState({
                     userInput2: '',
-                    userInput3: ''
+                    userInput3: '',
+                    disableButton: false
                 })
 
             });
@@ -183,6 +192,9 @@ class MyComponent extends React.Component {
         }
 
         else if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.userInput2)){
+            this.setState({
+                disableButton: true
+            })
             Api.post(url1,{  
                 "email" : this.state.userInput2,
                 "password" : this.state.userInput3
@@ -193,18 +205,23 @@ class MyComponent extends React.Component {
                     this.setState({
                         activeRegister: false,
                         userInput2: '',
-                        userInput3: ''
+                        userInput3: '',
+                        disableButton: false
                     })
                 }
                 else{
                     alert("Registration unsuccessful"); 
+                    this.setState({
+                        disableButton: false
+                    })
                 }
             }).catch((error) => {
                 //console.log("error",error.data.message);
                 alert(error.data.message);
                 this.setState({
                     userInput2: '',
-                    userInput3: ''
+                    userInput3: '',
+                    disableButton: false
                 })
             });
             
@@ -286,9 +303,9 @@ class MyComponent extends React.Component {
                                     <br />
                                     <div className="Appx3">
                                         <label className="checkPass"><input type="checkbox" onClick={this.handleSubmit2} /> <span> Show Password </span></label> 
-                                        {this.state.activeRegister ? 
-                                        <button onClick={this.register}>REGISTER</button> :
-                                        <button onClick={this.handleSubmit}>LOGIN</button> }
+                                        {this.state.activeRegister ?
+                                        <button disabled={this.state.disableButton} onClick={this.register}>REGISTER</button> :
+                                        <button disabled={this.state.disableButton} onClick={this.handleSubmit}>LOGIN</button> }
                                     </div>
                                     {this.state.activeRegister ? 
                                     <div className="Appx2">
